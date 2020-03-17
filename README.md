@@ -1,4 +1,4 @@
-![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/tree/development/share/icons/hicolor/48x48/apps "gridcoin logo")
+![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/blob/development/share/icons/hicolor/48x48/apps/gridcoinresearch.png "gridcoin logo")
 
 ### Containers for developers:
 
