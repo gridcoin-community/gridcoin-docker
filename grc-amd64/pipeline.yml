@@ -1,9 +1,9 @@
 ---
 resources:
-  - name: docker-images
+  - name: gridcoin-docker
     type: git
     source:
-      uri: https://github.com/caraka/docker-images.git
+      uri: https://github.com/gridcoin-community/gridcoin-docker
       branch: master
 
   - name: grc-amd64-bionic
@@ -12,7 +12,7 @@ resources:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
       password: ((docker-hub-password))
-      repository: ((docker-hub-username))/grc-amd64
+      repository: gridcoincommunity/grc-amd64
       tag: bionic
 
   - name: grc-amd64-buster
@@ -21,17 +21,17 @@ resources:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
       password: ((docker-hub-password))
-      repository: ((docker-hub-username))/grc-amd64
+      repository: gridcoincommunity/grc-amd64
       tag: buster
 
 jobs:
   - name: build-grc-amd64
     public: true
     plan:
-      - get: docker-images
+      - get: gridcoin-docker
       - put: grc-amd64-bionic
         params:
-          build: docker-images/grc-amd64/grc-bionic
+          build: gridcoin-docker/grc-amd64/grc-bionic
       - put: grc-amd64-buster
         params:
-          build: docker-images/grc-amd64/grc-buster
+          build: gridcoin-docker/grc-amd64/grc-buster
