@@ -12,11 +12,11 @@ The build dependencies and other tools are generous to cater for local compilati
 
 sudo enabled for user dev:dev so changes can be made to the build environment as required.
 
-set the container's LOCAL_USER_ID='1000' for clean operation from your local drive
+set the container's LOCAL_USER_ID='1000' or to your uid for clean operation from your local drive
 
 example:
 
-docker run --rm -it --name grc-bionic -v /$HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' caraka/grc-amd64:bionic
+docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64:bionic
 
 git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 

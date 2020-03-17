@@ -25,10 +25,10 @@ chown dev:dev /home/dev/.devscripts
 
 # some messaging
 echo "."
-echo "sudo is enabled, with password dev:dev"
-echo "type 'exit' to drop to root"
+echo "sudo is enabled, with user:password = dev:dev"
+echo "type 'exit' to drop to root and/or"
 echo "type 'su - dev' to become dev again"
-echo "you are in the /home/dev directory as dev"
+echo "you are now in the /home/dev directory as dev"
 echo "."
 su - dev
 cd /home/dev
