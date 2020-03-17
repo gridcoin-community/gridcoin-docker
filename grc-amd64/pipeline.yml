@@ -1,0 +1,37 @@
+---
+resources:
+  - name: docker-images
+    type: git
+    source:
+      uri: https://github.com/caraka/docker-images.git
+      branch: master
+
+  - name: grc-amd64-bionic
+    type: docker-image
+    source:
+      email: ((docker-hub-email))
+      username: ((docker-hub-username))
+      password: ((docker-hub-password))
+      repository: ((docker-hub-username))/grc-amd64
+      tag: bionic
+
+  - name: grc-amd64-buster
+    type: docker-image
+    source:
+      email: ((docker-hub-email))
+      username: ((docker-hub-username))
+      password: ((docker-hub-password))
+      repository: ((docker-hub-username))/grc-amd64
+      tag: buster
+
+jobs:
+  - name: build-grc-amd64
+    public: true
+    plan:
+      - get: docker-images
+      - put: grc-amd64-bionic
+        params:
+          build: docker-images/grc-amd64/grc-bionic
+      - put: grc-amd64-buster
+        params:
+          build: docker-images/grc-amd64/grc-buster
