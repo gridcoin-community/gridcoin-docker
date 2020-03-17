@@ -1,12 +1,12 @@
-###Containers for developers:###
+### Containers for developers:
 
 *grc-amd64:(bionic, buster)*
 
 Compilation environments for gridcoinresearch & gridcoinresearchd
 
-###Unsecure: Not intended for any kind of exposure.###
+### Unsecure: Not intended for any kind of exposure.
 
-###Containers for users:###
+### Containers for users:
 
 TODO
 
