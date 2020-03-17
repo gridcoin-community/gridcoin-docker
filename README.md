@@ -1,14 +1,19 @@
+![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/tree/development/share/icons/hicolor/48x48/apps "gridcoin logo")
+
 ### Containers for developers:
 
 *grc-amd64:(bionic, buster)*
 
-Compilation environments for gridcoinresearch & gridcoinresearchd
+Compilation/build environments with generous dependencies and tools for gridcoinresearch & gridcoinresearchd
 
-### Unsecure: Not intended for any kind of exposure.
+Please see the README in gridcoin-docker/grc-amd64
+
+**These developer containers are unsecure and not intended for any kind of exposure.**
 
 ### Containers for users:
 
 TODO
+
 
 Contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
 
