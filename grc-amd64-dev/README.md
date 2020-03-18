@@ -22,15 +22,14 @@ set the container's LOCAL_USER_ID='1000'  or to your host's unique uid for clean
 
 example:
 
-```
-docker pull gridcoincommunity/grc-amd64-dev:bionic
+>docker pull gridcoincommunity/grc-amd64-dev:bionic
 
-docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64-dev:bionic
+>docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64-dev:bionic
 
-git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
+>git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 
-./autogen.sh && ./configure --with-incompatible-bdb && make
-```
+>./autogen.sh && ./configure --with-incompatible-bdb && make
+
 strip the desired binary(s) and make install on your host machine
 
 Contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
