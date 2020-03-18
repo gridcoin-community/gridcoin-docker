@@ -24,6 +24,24 @@ resources:
       repository: gridcoincommunity/grc-amd64-dev
       tag: buster
 
+  - name: grc-amd64-focal
+    type: docker-image
+    source:
+      email: ((docker-hub-email))
+      username: ((docker-hub-username))
+      password: ((docker-hub-password))
+      repository: gridcoincommunity/grc-amd64-dev
+      tag: focal
+
+  - name: grc-amd64-bullseye
+    type: docker-image
+    source:
+      email: ((docker-hub-email))
+      username: ((docker-hub-username))
+      password: ((docker-hub-password))
+      repository: gridcoincommunity/grc-amd64-dev
+      tag: bullseye
+
 jobs:
   - name: build-grc-amd64-dev
     public: true
@@ -35,3 +53,9 @@ jobs:
       - put: grc-amd64-buster
         params:
           build: gridcoin-docker/grc-amd64-dev/grc-buster-dev
+      - put: grc-amd64-focal
+        params:
+          build: gridcoin-docker/grc-amd64-dev/grc-focal-dev
+      - put: grc-amd64-bullseye
+        params:
+          build: gridcoin-docker/grc-amd64-dev/grc-bullseye-dev
