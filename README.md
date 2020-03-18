@@ -2,7 +2,9 @@
 
 ### Containers for developers:
 
-*grc-amd64-dev:(bionic, buster)*
+*gridcoincommunity/grc-amd64-dev:(bionic, buster)*
+
+Available from [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-amd64-dev)
 
 Compilation/build environments with generous dependencies and tools for gridcoinresearch & gridcoinresearchd
 
