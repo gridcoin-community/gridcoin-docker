@@ -15,6 +15,9 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     debhelper \
 	devscripts \
 	automake \
+    g++-mingw-w64-x86-64 \
+    g++-mingw-w64-i686 \
+    mingw-w64-i686-dev \
 	libtool \
     libevent-dev \
     bsdmainutils \
