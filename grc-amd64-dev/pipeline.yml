@@ -31,7 +31,7 @@ jobs:
       - get: gridcoin-docker
       - put: grc-amd64-bionic
         params:
-          build: gridcoin-docker/grc-amd64/grc-bionic-dev
+          build: gridcoin-docker/grc-amd64-dev/grc-bionic-dev
       - put: grc-amd64-buster
         params:
-          build: gridcoin-docker/grc-amd64/grc-buster-dev
+          build: gridcoin-docker/grc-amd64-dev/grc-buster-dev
