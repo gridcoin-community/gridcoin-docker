@@ -43,19 +43,31 @@ resources:
       tag: bullseye
 
 jobs:
-  - name: build-grc-amd64-dev
+  - name: build-grc-amd64-bionic
     public: true
     plan:
       - get: gridcoin-docker
       - put: grc-amd64-bionic
         params:
           build: gridcoin-docker/grc-amd64-dev/grc-bionic-dev
+  - name: build-grc-amd64-buster
+    public: true
+    plan:
+      - get: gridcoin-docker
       - put: grc-amd64-buster
         params:
           build: gridcoin-docker/grc-amd64-dev/grc-buster-dev
+  - name: build-grc-amd64-focal
+    public: true
+    plan:
+      - get: gridcoin-docker
       - put: grc-amd64-focal
         params:
           build: gridcoin-docker/grc-amd64-dev/grc-focal-dev
+  - name: build-grc-amd64-bullseye
+    public: true
+    plan:
+      - get: gridcoin-docker
       - put: grc-amd64-bullseye
         params:
           build: gridcoin-docker/grc-amd64-dev/grc-bullseye-dev
