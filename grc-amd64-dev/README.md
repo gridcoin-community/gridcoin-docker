@@ -18,7 +18,7 @@ The build dependencies and other tools are generous to cater for local compilati
 
 user:password = dev:dev with $HOME and sudo enabled so changes can be made to the build environment as required.
 
-set the container's LOCAL_USER_ID='1000'  or to your houst's unique uid for clean operation from your local drive
+set the container's LOCAL_USER_ID='1000'  or to your host's unique uid for clean operation from your local drive
 
 example:
 
