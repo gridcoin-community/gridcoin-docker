@@ -16,7 +16,7 @@ set the container's LOCAL_USER_ID='1000' or to your uid for clean operation from
 
 example:
 
-docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64:bionic
+docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64-dev:bionic
 
 git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 

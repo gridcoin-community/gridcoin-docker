@@ -12,7 +12,7 @@ resources:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
       password: ((docker-hub-password))
-      repository: gridcoincommunity/grc-amd64
+      repository: gridcoincommunity/grc-amd64-dev
       tag: bionic
 
   - name: grc-amd64-buster
@@ -21,17 +21,17 @@ resources:
       email: ((docker-hub-email))
       username: ((docker-hub-username))
       password: ((docker-hub-password))
-      repository: gridcoincommunity/grc-amd64
+      repository: gridcoincommunity/grc-amd64-dev
       tag: buster
 
 jobs:
-  - name: build-grc-amd64
+  - name: build-grc-amd64-dev
     public: true
     plan:
       - get: gridcoin-docker
       - put: grc-amd64-bionic
         params:
-          build: gridcoin-docker/grc-amd64/grc-bionic
+          build: gridcoin-docker/grc-amd64/grc-bionic-dev
       - put: grc-amd64-buster
         params:
-          build: gridcoin-docker/grc-amd64/grc-buster
+          build: gridcoin-docker/grc-amd64/grc-buster-dev
