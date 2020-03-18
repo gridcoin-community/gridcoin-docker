@@ -1,8 +1,6 @@
 ![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/blob/development/share/icons/hicolor/48x48/apps/gridcoinresearch.png "gridcoin logo")
 
-*gridcoincommunity/grc-amd64-dev:(bionic, buster)*
-
-Available from [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-amd64-dev)
+*gridcoincommunity/grc-amd64-dev:(bionic, buster, focal, bullseye)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-amd64-dev)
 
 Compilation environments with generous dependencies and tools for building gridcoinresearch & gridcoinresearchd
 
