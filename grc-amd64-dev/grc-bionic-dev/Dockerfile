@@ -14,6 +14,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     ca-certificates \
     debhelper \
 	devscripts \
+    debian-keyring \
+    libdistro-info-perl \
 	automake \
     g++-mingw-w64-x86-64 \
     g++-mingw-w64-i686 \
@@ -49,7 +51,10 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     apt-utils \
     sudo \
     git \
-    nano &&\
+    nano 
+
+RUN export DEBIAN_FRONTEND='noninteractive' &&\
+	apt install -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY start.sh /usr/local/bin/start.sh

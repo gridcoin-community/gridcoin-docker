@@ -14,6 +14,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     ca-certificates \
     debhelper \
 	devscripts \
+    debian-keyring \
+    libdistro-info-perl \
 	automake \
 	libtool \
     libevent-dev \

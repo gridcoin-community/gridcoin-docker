@@ -13,7 +13,7 @@ echo "dev:dev" | chpasswd
 usermod -aG sudo dev
 
 # Set the default mingw32 g++ compiler option to posix for Win64 builds
-update-alternatives --config x86_64-w64-mingw32-g++ 
+update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
 
 # Create and initialise debuild defaults
 rm /home/dev/.devscripts || true
