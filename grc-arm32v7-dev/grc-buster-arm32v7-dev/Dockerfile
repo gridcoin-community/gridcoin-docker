@@ -1,5 +1,7 @@
-FROM debian:bullseye-slim
+FROM arm32v7/debian:buster-slim
 MAINTAINER caraka@gridcoin.us
+
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # The build-deps are a bit fat to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster

@@ -1,5 +1,7 @@
-FROM debian:bullseye-slim
+FROM arm32v7/debian:stretch-slim
 MAINTAINER caraka@gridcoin.us
+
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # The build-deps are a bit fat to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
@@ -50,6 +52,11 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
+RUN export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt install -y -t stretch-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY start.sh /usr/local/bin/start.sh

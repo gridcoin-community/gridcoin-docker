@@ -8,29 +8,29 @@ MAINTAINER caraka@gridcoin.us
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
 	apt update && apt install -y --no-install-recommends \
-    build-essential \
-    dh-exec \
+	build-essential \
+	dh-exec \
 	fakeroot \
-    ca-certificates \
-    debhelper \
+	ca-certificates \
+	debhelper \
 	devscripts \
-    quilt \
-    debian-keyring \
-    libdistro-info-perl \
+	quilt \
+	debian-keyring \
+	libdistro-info-perl \
 	automake \
 	libtool \
-    libevent-dev \
-    bsdmainutils \
+	libevent-dev \
+	bsdmainutils \
 	libssl-dev \
 	pkg-config \
 	libdb++-dev \
-    libboost-filesystem-dev \
-    libboost-program-options-dev \
-    libboost-system-dev \
-    libboost-thread-dev \
-    libboost-test-dev \
-    libboost-chrono-dev \
-    libboost-iostreams-dev \
+	libboost-filesystem-dev \
+	libboost-program-options-dev \
+	libboost-system-dev \
+	libboost-thread-dev \
+	libboost-test-dev \
+	libboost-chrono-dev \
+	libboost-iostreams-dev \
 	libqrencode-dev \
 	libprotobuf-dev \
 	protobuf-compiler \
@@ -38,29 +38,29 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	qt5-default \
 	qt5-qmake \
 	qttools5-dev \
-    libqt5svg5-dev \
+	libqt5svg5-dev \
 	libqt5charts5-dev \
-    libcurl4-openssl-dev \
-    libzip-dev \
-    zlib1g-dev \
-    python3 \
-    curl \
-    wget \
-    apt-utils \
-    sudo \
-    git \
-    nano &&\
+	libcurl4-openssl-dev \
+	libzip-dev \
+	zlib1g-dev \
+	python3 \
+	curl \
+	wget \
+	apt-utils \
+	sudo \
+	git \
+	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # add build-deps for Windows, LTS only
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt install -y --no-install-recommends \
-    g++-mingw-w64-x86-64 \
-    g++-mingw-w64-i686 \
-    mingw-w64-i686-dev &&\
+	g++-mingw-w64-x86-64 \
+	g++-mingw-w64-i686 \
+	mingw-w64-i686-dev &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# update to backported debhelper 12.x for easier package backporting (bionic only)
+# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
