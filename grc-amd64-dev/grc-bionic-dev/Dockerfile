@@ -18,9 +18,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     debian-keyring \
     libdistro-info-perl \
 	automake \
-    g++-mingw-w64-x86-64 \
-    g++-mingw-w64-i686 \
-    mingw-w64-i686-dev \
 	libtool \
     libevent-dev \
     bsdmainutils \
@@ -52,10 +49,20 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     apt-utils \
     sudo \
     git \
-    nano 
+    nano &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# add build-deps for Windows, LTS only
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt install -y -t bionic-backports debhelper &&\
+	apt update && apt install -y --no-install-recommends \
+    g++-mingw-w64-x86-64 \
+    g++-mingw-w64-i686 \
+    mingw-w64-i686-dev &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# update to backported debhelper 12.x for easier package backporting (bionic only)
+RUN export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY start.sh /usr/local/bin/start.sh
