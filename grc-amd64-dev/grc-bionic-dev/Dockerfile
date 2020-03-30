@@ -55,7 +55,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     nano 
 
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt install -t bionic-backports debhelper &&\
+	apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY start.sh /usr/local/bin/start.sh
