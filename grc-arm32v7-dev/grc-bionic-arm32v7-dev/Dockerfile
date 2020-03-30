@@ -53,11 +53,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano &&\
-	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# update to backported debhelper 12.x for easier package backporting (bionic only)
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt update && apt install -y -t bionic-backports debhelper &&\
+	# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
+	apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY start.sh /usr/local/bin/start.sh
