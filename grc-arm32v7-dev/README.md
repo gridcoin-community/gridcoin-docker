@@ -1,6 +1,6 @@
 ![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/blob/development/share/icons/hicolor/48x48/apps/gridcoinresearch.png "gridcoin logo")
 
-*gridcoincommunity/grc-amd64-dev:(bionic, buster, focal, bullseye)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-amd64-dev)
+*gridcoincommunity/grc-arm32v7-dev:(bionic,)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm32v7-dev)
 
 Compilation environments with generous dependencies and tools for building gridcoinresearch & gridcoinresearchd
 
@@ -14,15 +14,13 @@ The build dependencies and other tools are generous to cater for local compilati
 
 ### Unsecure: Not intended for any kind of exposure. This is a disposable development environment.
 
-user:password = dev:dev with $HOME and sudo enabled so changes can be made to the build environment as required.
-
-set the container's LOCAL_USER_ID='1000'  or to your host's unique uid for clean operation from your local drive
+user:password = dev:dev; sudo is enabled, with NOPASSWD
 
 example:
 
->docker pull gridcoincommunity/grc-amd64-dev:bionic
+>docker pull gridcoincommunity/grc-arm32v7-dev:bionic
 
->docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64-dev:bionic
+>docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev gridcoincommunity/grc-arm32v7-dev:bionic
 
 >git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 

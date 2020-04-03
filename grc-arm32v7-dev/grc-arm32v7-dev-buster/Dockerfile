@@ -1,9 +1,9 @@
-FROM arm32v7/debian:buster-slim
+FROM arm32v7/debian:buster-slim as grc-arm32v7-buster-build-deps
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 
-# The build-deps are a bit fat to cater for local compilation or debian package
+# The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
 # upgrade the OS and install gridcoin build env
@@ -54,7 +54,21 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# build the devtime stage, using cached build-deps stage:
+
+FROM grc-arm32v7-buster-build-deps as grcarm32v7devbuster
+
 COPY start.sh /usr/local/bin/start.sh
-RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
+
+RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+	export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# add local user dev
+RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
+	usermod -aG sudo dev &&\
+	echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
+	mkdir -p /home/dev/bin
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]

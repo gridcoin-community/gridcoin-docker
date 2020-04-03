@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# this script is run as user 'dev'
-
 # update the system
 apt-get update && apt-get upgrade -y --no-install-recommends
 
