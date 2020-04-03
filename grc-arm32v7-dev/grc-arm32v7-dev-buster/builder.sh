@@ -17,4 +17,4 @@ docker build --rm \
     --tag gridcoincommunity/grc-arm32v7-dev:buster .
 
 # push the new version:
-#docker push gridcoincommunity/grc-arm32v7-dev:buster
+docker push gridcoincommunity/grc-arm32v7-dev:buster
