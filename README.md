@@ -8,7 +8,7 @@
 
 Compilation/build environments with generous dependencies and tools for gridcoinresearch & gridcoinresearchd
 
-Please see the separate README in each architecture folder
+Please see the separate README in each architecture folder or at DockerHub
 
 ### Unsecure: Not intended for any kind of exposure. These are disposable development environments.
 
