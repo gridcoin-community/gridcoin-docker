@@ -2,20 +2,19 @@
 
 set -euo pipefail
 
-# pull the latest version of the image, in order to
-# populate the build cache:
-#docker pull gridcoincommunity/grc-arm32v7-dev:bionic        || true
+docker login
 
 # build the build-deps stage:
-docker build --target grc-bionic-arm32v7-build-deps \
-       --cache-from=grc-bionic-arm32v7-build-deps \
-       --tag grc-bionic-arm32v7-build-deps .
+docker build --rm \
+    --target grc-arm32v7-build-deps-bionic \
+    --cache-from=grc-arm32v7-build-deps-bionic \
+    --tag grc-arm32v7-build-deps-bionic .
 
 # build the devtime stage, using cached build-deps stage:
-docker build --target grcbionicarm32v7dev \
-       --cache-from=grc-bionic-arm32v7-build-deps \
-       --cache-from=gridcoincommunity/grc-arm32v7-dev:bionic \
-       --tag gridcoincommunity/grc-arm32v7-dev:bionic .
+docker build --rm \
+    --target grcbionicarm32v7dev \
+    --cache-from=grc-arm32v7-build-deps-bionic \
+    --tag gridcoincommunity/grc-arm32v7-dev:bionic .
 
 # push the new version:
-#docker push gridcoincommunity/grc-arm32v7-dev:bionic
+docker push gridcoincommunity/grc-arm32v7-dev:bionic

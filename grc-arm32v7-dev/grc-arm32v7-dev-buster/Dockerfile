@@ -1,4 +1,4 @@
-FROM arm32v7/debian:buster-slim as grc-arm32v7-buster-build-deps
+FROM arm32v7/debian:buster-slim as grc-arm32v7-build-deps-buster
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
@@ -56,7 +56,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 
 # build the devtime stage, using cached build-deps stage:
 
-FROM grc-arm32v7-buster-build-deps as grcarm32v7devbuster
+FROM grc-arm32v7-build-deps-buster as grcarm32v7devbuster
 
 COPY start.sh /usr/local/bin/start.sh
 
@@ -64,11 +64,5 @@ RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
 	export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# add local user dev
-RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
-	usermod -aG sudo dev &&\
-	echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
-	mkdir -p /home/dev/bin
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]

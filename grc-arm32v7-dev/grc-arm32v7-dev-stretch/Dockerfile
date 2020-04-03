@@ -1,4 +1,4 @@
-FROM arm32v7/debian:stretch-slim as grc-arm32v7-stretch-build-deps
+FROM arm32v7/debian:stretch-slim as grc-arm32v7-build-deps-stretch
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
@@ -6,8 +6,9 @@ COPY qemu-arm-static /usr/bin/qemu-arm-static
 # The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
-# upgrade the OS and install gridcoin build env
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
+# enable stretch-backports; upgrade the OS; install gridcoin build env
+RUN echo "deb http://http.debian.net/debian stretch-backports main contrib non-free" >> /etc/apt/sources.list &&\
+	export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
 	apt update && apt install -y --no-install-recommends \
 	build-essential \
@@ -41,7 +42,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	qt5-qmake \
 	qttools5-dev \
 	libqt5svg5-dev \
-	libqt5charts5-dev \
+	#libqt5charts5-dev \ # does not exist in stretch default qt
 	libcurl4-openssl-dev \
 	libzip-dev \
 	zlib1g-dev \
@@ -58,7 +59,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 
 	# build the devtime stage, using cached build-deps stage:
 
-	FROM grc-arm32v7-stretch-build-deps as grcarm32v7devstretch
+	FROM grc-arm32v7-build-deps-stretch as grcarm32v7devstretch
 
 	COPY start.sh /usr/local/bin/start.sh
 
@@ -66,11 +67,5 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 		export DEBIAN_FRONTEND='noninteractive' &&\
 		apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
 		apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-	# add local user dev
-	RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
-		usermod -aG sudo dev &&\
-		echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
-		mkdir -p /home/dev/bin
 
 	ENTRYPOINT ["/usr/local/bin/start.sh"]

@@ -3,6 +3,14 @@
 # update the system
 apt-get update && apt-get upgrade -y --no-install-recommends
 
+# add dev user using HOST_USER_ID if passed in at runtime; fallback uid=1000
+USER_ID=${HOST_USER_ID:-1000}
+echo "Starting with UID : $USER_ID"
+useradd --shell /bin/bash -u $USER_ID -o -c "" -m dev
+export HOME=/home/dev
+usermod -aG sudo dev
+echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 # create and initialise debuild defaults
 export HOME=/home/dev
 echo "dev:dev" | chpasswd

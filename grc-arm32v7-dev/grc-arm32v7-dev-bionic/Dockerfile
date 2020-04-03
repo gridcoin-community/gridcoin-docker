@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:bionic as grc-bionic-arm32v7-build-deps
+FROM arm32v7/ubuntu:bionic as grc-arm32v7-build-deps-bionic
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
@@ -58,19 +58,13 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # build the devtime stage, using cached build-deps stage:
-FROM grc-bionic-arm32v7-build-deps as grcbionicarm32v7dev
-
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
-	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# add local user dev
-RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
-	usermod -aG sudo dev &&\
-	echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
-	mkdir -p /home/dev/bin
+FROM grc-arm32v7-build-deps-bionic as grcbionicarm32v7dev
 
 COPY start.sh /usr/local/bin/start.sh
-RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
+
+RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+	export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
