@@ -1,9 +1,9 @@
-FROM arm32v7/debian:stretch-slim
+FROM arm32v7/debian:stretch-slim as grc-arm32v7-stretch-build-deps
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 
-# The build-deps are a bit fat to cater for local compilation or debian package
+# The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
 # upgrade the OS and install gridcoin build env
@@ -52,14 +52,25 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano &&\
+	# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
+	apt install -y -t stretch-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt update && apt install -y -t stretch-backports debhelper &&\
-	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	# build the devtime stage, using cached build-deps stage:
 
-COPY start.sh /usr/local/bin/start.sh
-RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
+	FROM grc-arm32v7-stretch-build-deps as grcarm32v7devstretch
 
-ENTRYPOINT ["/usr/local/bin/start.sh"]
+	COPY start.sh /usr/local/bin/start.sh
+
+	RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+		export DEBIAN_FRONTEND='noninteractive' &&\
+		apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+		apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+	# add local user dev
+	RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
+		usermod -aG sudo dev &&\
+		echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
+		mkdir -p /home/dev/bin
+
+	ENTRYPOINT ["/usr/local/bin/start.sh"]
