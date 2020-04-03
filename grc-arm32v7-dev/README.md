@@ -1,6 +1,6 @@
 ![gridcoin logo](https://github.com/gridcoin-community/Gridcoin-Research/blob/development/share/icons/hicolor/48x48/apps/gridcoinresearch.png "gridcoin logo")
 
-*gridcoincommunity/grc-arm32v7-dev:(bionic,)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm32v7-dev)
+*gridcoincommunity/grc-arm32v7-dev:(bionic, buster)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm32v7-dev)
 
 Compilation environments with generous dependencies and tools for building gridcoinresearch & gridcoinresearchd
 
