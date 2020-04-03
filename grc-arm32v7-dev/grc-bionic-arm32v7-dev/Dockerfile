@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu:bionic
+FROM arm32v7/ubuntu:bionic as grc-bionic-arm32v7-build-deps
 MAINTAINER caraka@gridcoin.us
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
@@ -56,6 +56,19 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
 	apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# build the devtime stage, using cached build-deps stage:
+FROM grc-bionic-arm32v7-build-deps as grcbionicarm32v7dev
+
+RUN export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# add local user dev
+RUN useradd --shell /bin/bash -u 1000 -o -c "" -m dev &&\
+	usermod -aG sudo dev &&\
+	echo "dev ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers &&\
+	mkdir -p /home/dev/bin
 
 COPY start.sh /usr/local/bin/start.sh
 RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
