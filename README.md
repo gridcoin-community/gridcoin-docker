@@ -6,6 +6,8 @@
 
 *gridcoincommunity/grc-arm32v7-dev:(bionic, buster, stretch)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm32v7-dev)
 
+*gridcoincommunity/grc-arm64v8-dev:(bionic, buster, stretch)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm64v8-dev)
+
 Compilation/build environments with generous dependencies and tools for gridcoinresearch & gridcoinresearchd
 
 Please see the separate README in each architecture folder or at DockerHub
@@ -17,7 +19,7 @@ Please see the separate README in each architecture folder or at DockerHub
 TODO
 
 
-Contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
+REport issues or contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
 
 Contribute to gridcoin itself at [https://github.com/gridcoin-community/Gridcoin-Research](https://github.com/gridcoin-community/Gridcoin-Research)
 
