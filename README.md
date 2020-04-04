@@ -6,7 +6,7 @@
 
 *gridcoincommunity/grc-arm32v7-dev:(bionic, buster, stretch)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm32v7-dev)
 
-*gridcoincommunity/grc-arm64v8-dev:(bionic, buster, stretch)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm64v8-dev)
+*gridcoincommunity/grc-arm64v8-dev:(bionic, buster)*  at [DockerHub](https://hub.docker.com/r/gridcoincommunity/grc-arm64v8-dev)
 
 Compilation/build environments with generous dependencies and tools for gridcoinresearch & gridcoinresearchd
 
