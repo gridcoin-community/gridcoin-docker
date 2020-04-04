@@ -14,15 +14,13 @@ The build dependencies and other tools are generous to cater for local compilati
 
 ### Unsecure: Not intended for any kind of exposure. This is a disposable development environment.
 
-user:password = dev:dev with $HOME and sudo enabled so changes can be made to the build environment as required.
+user:password = dev:dev; sudo is enabled, with NOPASSWD (sudo can be finicky in containers)
 
-set the container's LOCAL_USER_ID='1000'  or to your host's unique uid for clean operation from your local drive
+dev's uid=1000, can be changed to match your host user's uid by adding [-e HOST_USER_ID=xxxx] to the *docker run* statement
 
 example:
 
->docker pull gridcoincommunity/grc-amd64-dev:bionic
-
->docker run --rm -it --name grc-bionic -v $HOME/build/bionic:/home/dev -e LOCAL_USER_ID='1000' gridcoincommunity/grc-amd64-dev:bionic
+>docker run --rm -it --name grc-bionic -v path2/build/folder:/home/dev [-e HOST_USER_ID=xxxx] gridcoincommunity/grc-amd64-dev:bionic
 
 >git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 
@@ -30,7 +28,7 @@ example:
 
 strip the desired binary(s) and make install on your host machine
 
-Contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
+Report issues or contribute to gridcoin-docker at [https://github.com/gridcoin-community/gridcoin-docker](https://github.com/gridcoin-community/gridcoin-docker)
 
 Contribute to gridcoin itself at [https://github.com/gridcoin-community/Gridcoin-Research](https://github.com/gridcoin-community/Gridcoin-Research)
 

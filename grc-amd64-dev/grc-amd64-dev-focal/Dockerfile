@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:focal as grc-amd64-build-deps-focal
 MAINTAINER caraka@gridcoin.us
 
 # The build-deps are a bit fat to cater for local compilation or debian package
@@ -52,7 +52,14 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+FROM grc-amd64-build-deps-focal as grcamd64devfocal
+LABEL stage="grcamd64devfocal"
+
 COPY start.sh /usr/local/bin/start.sh
-RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
+
+RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+	export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
