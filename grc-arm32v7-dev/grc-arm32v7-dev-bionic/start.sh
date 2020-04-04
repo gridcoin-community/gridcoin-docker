@@ -5,7 +5,6 @@ apt-get update && apt-get upgrade -y --no-install-recommends
 
 # add dev user using HOST_USER_ID if passed in at runtime; fallback uid=1000
 USER_ID=${HOST_USER_ID:-1000}
-echo "Starting with UID : $USER_ID"
 useradd --shell /bin/bash -u $USER_ID -o -c "" -m dev
 export HOME=/home/dev
 usermod -aG sudo dev
@@ -25,6 +24,7 @@ chown dev:dev /home/dev/.devscripts
 
 # some messaging
 echo "."
+echo "Started with UID : $USER_ID"
 echo "user:password = dev:dev"
 echo "sudo is enabled, with NOPASSWD"
 echo "you are currently in the /home/dev directory as dev"

@@ -1,7 +1,7 @@
-FROM ubuntu:bionic
-MAINTAINER caraka@gridcoin.us
+FROM ubuntu:bionic as grc-amd64-build-deps-bionic
+LABEL maintainer="caraka@gridcoin.us"
 
-# The build-deps are a bit fat to cater for local compilation or debian package
+# The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
 # upgrade the OS and install gridcoin build env
@@ -49,23 +49,24 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
-	nano &&\
-	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# add build-deps for Windows, LTS only
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt update && apt install -y --no-install-recommends \
+	nano \
+	# the following are for Windows executable compiling, Ubuntu LTS only
 	g++-mingw-w64-x86-64 \
 	g++-mingw-w64-i686 \
 	mingw-w64-i686-dev &&\
-	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
-RUN export DEBIAN_FRONTEND='noninteractive' &&\
+	# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
 	apt update && apt install -y -t bionic-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# build the devtime stage, using cached build-deps stage:
+FROM grc-amd64-build-deps-bionic as grc-amd64-dev-bionic
+LABEL stage="grc-amd64-dev-bionic"
+
 COPY start.sh /usr/local/bin/start.sh
-RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh'
+
+RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+	export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENTRYPOINT ["/usr/local/bin/start.sh"]
