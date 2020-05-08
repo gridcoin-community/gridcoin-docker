@@ -3,6 +3,7 @@
 set -euo pipefail
 
 docker login
+docker pull ubuntu:bionic
 
 # build the build-deps stage:
 docker build --target grc-amd64-build-deps-bionic \

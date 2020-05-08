@@ -3,6 +3,7 @@
 set -euo pipefail
 
 docker login
+docker pull ubuntu:focal
 
 # build the build-deps stage:
 docker build --target grc-amd64-build-deps-focal \

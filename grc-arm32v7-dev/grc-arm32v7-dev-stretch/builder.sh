@@ -3,6 +3,7 @@
 set -euo pipefail
 
 docker login
+docker pull arm32v7/debian:stretch-slim
 
 # build the build-deps stage:
 docker build --rm \

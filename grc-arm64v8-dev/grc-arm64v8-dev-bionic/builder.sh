@@ -3,6 +3,7 @@
 set -euo pipefail
 
 docker login
+docker pull arm64v8/ubuntu:bionic
 
 # build the build-deps stage:
 docker build --rm \
