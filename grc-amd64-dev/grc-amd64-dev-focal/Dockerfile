@@ -35,9 +35,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qt5-default \
-	qt5-qmake \
-	qttools5-dev \
+	qtbase5-dev \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
 	libqt5charts5-dev \
 	libcurl4-openssl-dev \
@@ -49,6 +48,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
+    software-properties-common \
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

@@ -1,8 +1,6 @@
 FROM arm64v8/debian:buster-slim as grc-arm64v8-build-deps-buster
 MAINTAINER caraka@gridcoin.us
 
-COPY qemu-aarch64-static /usr/bin/qemu-aarch64-static
-
 # The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
@@ -37,9 +35,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qt5-default \
-	qt5-qmake \
-	qttools5-dev \
+	qtbase5-dev \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
 	libqt5charts5-dev \
 	libcurl4-openssl-dev \

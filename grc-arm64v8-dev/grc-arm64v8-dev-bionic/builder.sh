@@ -20,4 +20,4 @@ docker build --rm \
 docker image prune -f --filter="label=stage=grcarm64v8devbionic"
 
 # push the new version:
-#docker push gridcoincommunity/grc-arm64v8-dev:bionic
+docker push gridcoincommunity/grc-arm64v8-dev:bionic

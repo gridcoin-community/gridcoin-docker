@@ -1,7 +1,5 @@
-FROM arm32v7/debian:stretch-slim as grc-arm32v7-build-deps-stretch
+FROM --platform=linux/arm/v7 debian:stretch-slim as grc-arm32v7-build-deps-stretch
 MAINTAINER caraka@gridcoin.us
-
-COPY qemu-arm-static /usr/bin/qemu-arm-static
 
 # The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
@@ -38,11 +36,9 @@ RUN echo "deb http://http.debian.net/debian stretch-backports main contrib non-f
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qt5-default \
-	qt5-qmake \
-	qttools5-dev \
+	qtbase5-dev \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
-	#libqt5charts5-dev \ # does not exist in stretch default qt
 	libcurl4-openssl-dev \
 	libzip-dev \
 	zlib1g-dev \
@@ -57,15 +53,16 @@ RUN echo "deb http://http.debian.net/debian stretch-backports main contrib non-f
 	apt install -y -t stretch-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-	# build the devtime stage, using cached build-deps stage:
+# build the devtime stage, using cached build-deps stage:
 
-	FROM grc-arm32v7-build-deps-stretch as grcarm32v7devstretch
+FROM grc-arm32v7-build-deps-stretch as grcarm32v7devstretch
+LABEL stage="grcarm32v7devstretch"
 
-	COPY start.sh /usr/local/bin/start.sh
+COPY start.sh /usr/local/bin/start.sh
 
-	RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
-		export DEBIAN_FRONTEND='noninteractive' &&\
-		apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
-		apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN /bin/bash -c 'chmod +x /usr/local/bin/start.sh' \
+	export DEBIAN_FRONTEND='noninteractive' &&\
+	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 	ENTRYPOINT ["/usr/local/bin/start.sh"]

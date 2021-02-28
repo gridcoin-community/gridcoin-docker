@@ -1,7 +1,7 @@
-FROM arm32v7/debian:buster-slim as grc-arm32v7-build-deps-buster
+FROM ubuntu:hirsute as grc-amd64-build-deps-hirsute
 MAINTAINER caraka@gridcoin.us
 
-# The build-deps are generous to cater for local compilation or debian package
+# The build-deps are a bit fat to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
 # upgrade the OS and install gridcoin build env
@@ -48,13 +48,12 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
+    software-properties-common \
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# build the devtime stage, using cached build-deps stage:
-
-FROM grc-arm32v7-build-deps-buster as grcarm32v7devbuster
-LABEL stage="grcarm32v7devbuster"
+FROM grc-amd64-build-deps-hirsute as grcamd64devhirsute
+LABEL stage="grcamd64devhirsute"
 
 COPY start.sh /usr/local/bin/start.sh
 

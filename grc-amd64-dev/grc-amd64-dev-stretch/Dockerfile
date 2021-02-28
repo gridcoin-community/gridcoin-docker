@@ -1,5 +1,5 @@
-FROM arm32v7/debian:buster-slim as grc-arm32v7-build-deps-buster
-MAINTAINER caraka@gridcoin.us
+FROM debian:stretch as grc-amd64-build-deps-stretch
+LABEL maintainer="caraka@gridcoin.us"
 
 # The build-deps are generous to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
@@ -38,7 +38,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	qtbase5-dev \
     qttools5-dev-tools \
 	libqt5svg5-dev \
-	libqt5charts5-dev \
 	libcurl4-openssl-dev \
 	libzip-dev \
 	zlib1g-dev \
@@ -48,13 +47,16 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
+    software-properties-common \
 	nano &&\
+	# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
+    echo "deb http://ftp.debian.org/debian stretch-backports main" | tee /etc/apt/sources.list.d/backports.list &&\
+	apt update && apt install -y -t stretch-backports debhelper &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # build the devtime stage, using cached build-deps stage:
-
-FROM grc-arm32v7-build-deps-buster as grcarm32v7devbuster
-LABEL stage="grcarm32v7devbuster"
+FROM grc-amd64-build-deps-stretch as grc-amd64-dev-stretch
+LABEL stage="grc-amd64-dev-stretch"
 
 COPY start.sh /usr/local/bin/start.sh
 

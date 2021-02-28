@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# update the system
+# Update the system
 apt-get update && apt-get upgrade -y --no-install-recommends
 
 # add dev user using HOST_USER_ID if passed in at runtime; fallback uid=1000

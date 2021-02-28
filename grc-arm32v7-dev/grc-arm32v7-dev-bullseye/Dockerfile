@@ -1,7 +1,7 @@
-FROM arm32v7/debian:buster-slim as grc-arm32v7-build-deps-buster
+FROM --platform=linux/arm/v7 debian:bullseye-slim as grc-arm32v7-build-deps-bullseye
 MAINTAINER caraka@gridcoin.us
 
-# The build-deps are generous to cater for local compilation or debian package
+# The build-deps are a bit fat to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
 # upgrade the OS and install gridcoin build env
@@ -52,9 +52,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # build the devtime stage, using cached build-deps stage:
-
-FROM grc-arm32v7-build-deps-buster as grcarm32v7devbuster
-LABEL stage="grcarm32v7devbuster"
+FROM grc-arm32v7-build-deps-bullseye as grcarm32v7devbullseye
+LABEL stage="grcarm32v7devbullseye"
 
 COPY start.sh /usr/local/bin/start.sh
 

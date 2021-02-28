@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# update the system
+# Update the system
 apt-get update && apt-get upgrade -y --no-install-recommends
 
 # add dev user using HOST_USER_ID if passed in at runtime; fallback uid=1000
@@ -21,6 +21,15 @@ DEBUILD_DPKG_BUILDPACKAGE_OPTS="-i -us -uc"
 DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
 EOT
 chown dev:dev /home/dev/.devscripts
+
+# for i386 containers only
+if [ "$(dpkg --print-architecture)" = "i386" ]; then
+   FOLDER=$(ls -d /home/dev/Gridcoin-Research* | head -n1);
+   echo "."
+   echo "Architecture is i386, build folder is $FOLDER"
+   sed -i.bak 's/--disable-tests/--disable-tests --with-boost-libdir=\/usr\/lib\/i386-linux-gnu/' $FOLDER/debian/rules
+   echo "Updated ./configure in $FOLDER/debian/rules for i386 boost path"
+fi
 
 # some messaging
 echo "."

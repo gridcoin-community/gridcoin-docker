@@ -1,4 +1,4 @@
-FROM arm32v7/debian:buster-slim as grc-arm32v7-build-deps-buster
+FROM i386/debian:buster-slim as grc-i386-build-deps-buster
 MAINTAINER caraka@gridcoin.us
 
 # The build-deps are generous to cater for local compilation or debian package
@@ -53,8 +53,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 
 # build the devtime stage, using cached build-deps stage:
 
-FROM grc-arm32v7-build-deps-buster as grcarm32v7devbuster
-LABEL stage="grcarm32v7devbuster"
+FROM grc-i386-build-deps-buster as grci386devbuster
 
 COPY start.sh /usr/local/bin/start.sh
 

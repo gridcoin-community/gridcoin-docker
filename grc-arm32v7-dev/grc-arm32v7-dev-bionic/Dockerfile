@@ -1,9 +1,6 @@
 FROM arm32v7/ubuntu:bionic as grc-arm32v7-build-deps-bionic
 MAINTAINER caraka@gridcoin.us
 
-COPY qemu-arm-static /usr/bin/qemu-arm-static
-RUN chmod +x /usr/bin/qemu-arm-static
-
 # The build-deps are a bit fat to cater for local compilation or debian package
 # building, on any Ubuntu or Debian =>ubuntu:bionic or =>debian:buster
 
@@ -38,9 +35,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qt5-default \
-	qt5-qmake \
-	qttools5-dev \
+	qtbase5-dev \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
 	libqt5charts5-dev \
 	libcurl4-openssl-dev \
@@ -59,6 +55,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 
 # build the devtime stage, using cached build-deps stage:
 FROM grc-arm32v7-build-deps-bionic as grcbionicarm32v7dev
+LABEL stage="grcbionicarm32v7dev"
 
 COPY start.sh /usr/local/bin/start.sh
 

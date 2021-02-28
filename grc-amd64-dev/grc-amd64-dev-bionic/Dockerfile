@@ -35,9 +35,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qt5-default \
-	qt5-qmake \
-	qttools5-dev \
+	qtbase5-dev \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
 	libqt5charts5-dev \
 	libcurl4-openssl-dev \
@@ -50,6 +49,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano \
+    software-properties-common \
 	# the following are for Windows executable compiling, Ubuntu LTS only
 	g++-mingw-w64-x86-64 \
 	g++-mingw-w64-i686 \
