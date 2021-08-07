@@ -51,10 +51,13 @@ ________________________________________________________________________________
 #### (bullseye amd64)
 docker run --rm -it --platform linux/amd64 --name bullseye -v $HOME/build/bullseye:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
 
+#### (bullseye i386)
+docker run --rm -it --platform linux/386 --name bullseye_i386 -v $HOME/build/bullseye_i386:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
+
 #### (bullseye arm32v7)
 docker run --rm -it --platform linux/arm/v7 --name bullseye_arm32v7 -v $HOME/build/bullseye_arm32v7:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
 
 #### (bullseye arm64)
-docker run --rm -it --platform linux/arm64 --name bullseye_arm64 -v $HOME/build/bullseye_arm64:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
+docker run --rm -it --platform linux/arm64 --name bullseye_arm64 -v $HOME/build/bullseye_arm64v8:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
 ______________________________________________________________________________________________________
 
