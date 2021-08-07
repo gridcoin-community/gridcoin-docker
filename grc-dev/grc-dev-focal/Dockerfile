@@ -38,7 +38,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
     qttools5-dev-tools \
 	libqt5svg5-dev \
 	libqt5charts5-dev \
-	libcurl4-openssl-dev \
+	libcurl4-gnutls-dev \
 	libzip-dev \
 	zlib1g-dev \
 	python3 \

@@ -9,11 +9,7 @@ PPA for qemu version 5 on 20.04:
 https://launchpad.net/~ci-train-ppa-service/+archive/ubuntu/4535/+packages
 ______________________________________________________________________________________________________
 
-#### (stretch amd64)
-docker run --rm -it --platform linux/amd64 --name stretch -v $HOME/build/stretch:/home/dev gridcoincommunity/grc-dev:stretch /bin/bash
-
-#### (stretch arm32v7)
-docker run --rm -it --platform linux/arm/v7 --name stretch_arm32v7 -v $HOME/build/stretch_arm32v7:/home/dev gridcoincommunity/grc-dev:stretch /bin/bash
+RIP Stretch
 ______________________________________________________________________________________________________
 
 #### (bionic amd64)
