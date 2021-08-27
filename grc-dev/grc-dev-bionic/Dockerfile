@@ -35,9 +35,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	protobuf-compiler \
 	libminiupnpc-dev \
 	qtbase5-dev \
-    qttools5-dev-tools \
+	qttools5-dev-tools \
 	libqt5svg5-dev \
-	libqt5charts5-dev \
 	libcurl4-gnutls-dev \
 	libzip-dev \
 	zlib1g-dev \

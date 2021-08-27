@@ -2,7 +2,7 @@
 
 You will need an up-to-date docker-ce and qemu-user-static properly linked with docker.
 
-Note: Running the cross-compiled Bullseye containers requires qemu version => 5.0. This is available on => 20.10 or via a PPA on 20.04. It is not available for 18.04
+Note: Running the cross-compiled Bullseye containers requires qemu version => 5.0. This is available on => 20.10 or or => Buster or via a PPA on 20.04. It is not available for 18.04
 
 PPA for qemu version 5 on 20.04:
 
