@@ -2,7 +2,7 @@
 
 You will need an up-to-date docker-ce and qemu-user-static properly linked with docker.
 
-Note: Running the cross-compiled Bullseye containers requires qemu version => 5.0. This is available on => 20.10 or or => Buster or via a PPA on 20.04. It is not available for 18.04
+Note: Running the cross-compiled Bullseye containers requires qemu version => 5.0. This is available on => Ubuntu 20.10 or or => Buster or via a PPA on Ubuntu 20.04. It is not available for 1Ubuntu 18.04
 
 PPA for qemu version 5 on 20.04:
 
@@ -60,4 +60,20 @@ docker run --rm -it --platform linux/arm/v7 --name bullseye_arm32v7 -v $HOME/bui
 #### (bullseye arm64)
 docker run --rm -it --platform linux/arm64 --name bullseye_arm64 -v $HOME/build/bullseye_arm64v8:/home/dev gridcoincommunity/grc-dev:bullseye /bin/bash
 ______________________________________________________________________________________________________
+
+### Build all the things
+
+The following commands are used to build the community containers for docker hub. Amend paths and the builder.sh files to suit your own local or hub based cross-compiled builds.
+
+#### (bionic multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-bionic && ./builder.sh
+
+#### (buster multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-buster && ./builder.sh
+
+#### (focal multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-focal && ./builder.sh
+
+#### (bullseye multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-bullseye && ./builder.sh
 
