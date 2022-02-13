@@ -9,7 +9,9 @@ PPA for qemu version 5 on 20.04:
 https://launchpad.net/~ci-train-ppa-service/+archive/ubuntu/4535/+packages
 ______________________________________________________________________________________________________
 
-RIP Stretch
+The following commands are used to run the community containers. Amend paths to suit your needs.
+
+Remember that sudo is very unreliable in containers. It is best to $exit to root to modify the container and then #su - dev to return to the default user before building.
 ______________________________________________________________________________________________________
 
 #### (bionic amd64)
