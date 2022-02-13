@@ -28,7 +28,7 @@ chown dev:dev /home/dev/.devscripts
 
 # for i386 containers only
 if [ "$(dpkg --print-architecture)" = "i386" ]; then
-   FOLDER=$(ls -d /home/dev/Gridcoin-Research* | head -n1);
+   FOLDER=$(ls -d /home/dev/*ridcoin* | head -n1);
    echo "."
    echo "Architecture is i386, build folder is $FOLDER"
    sed -i.bak 's/--disable-tests/--disable-tests --with-boost-libdir=\/usr\/lib\/i386-linux-gnu/' $FOLDER/debian/rules

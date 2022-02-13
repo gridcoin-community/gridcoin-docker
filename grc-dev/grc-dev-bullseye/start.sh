@@ -4,31 +4,27 @@
 apt-get update && apt-get upgrade -y --no-install-recommends
 
 # add dev user using HOST_USER_ID if passed in at runtime; fallback uid=1000
+# create vboxsf group and add user dev to aid with up-to-date virtualbox VMs
+groupadd -g 998 vboxsf
 USER_ID=${HOST_USER_ID:-1000}
-useradd --shell /bin/bash -u $USER_ID -o -c "" -m dev
+useradd --shell /bin/bash -u $USER_ID -o -c "" -p dev -m dev
 export HOME=/home/dev
-
-# Set the default mingw32 g++ compiler option to posix for Win64 builds (bionic & focal only)
-if [ "$(lsb_release -sc)" = "bionic" || "$(lsb_release -sc)" = "focal" ]; then
-    update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
-    echo "We have set the default mingw32 g++ compiler option to posix for Win64 builds"
-fi
+usermod -aG vboxsf dev
 
 # create and initialise debuild defaults
-export HOME=/home/dev
-echo "dev:dev" | chpasswd
 rm /home/dev/.devscripts || true
 echo "creating a new .devscripts file in /home/dev"
 touch /home/dev/.devscripts
+touch /home/dev/.bash_history
 cat <<EOT >> /home/dev/.devscripts
 DEBUILD_DPKG_BUILDPACKAGE_OPTS="-i -us -uc"
 DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
 EOT
-chown dev:dev /home/dev/.devscripts
+chown -R dev:dev /home/dev
 
 # for i386 containers only
 if [ "$(dpkg --print-architecture)" = "i386" ]; then
-   FOLDER=$(ls -d /home/dev/Gridcoin-Research* | head -n1);
+   FOLDER=$(ls -d /home/dev/*ridcoin* | head -n1);
    echo "."
    echo "Architecture is i386, build folder is $FOLDER"
    sed -i.bak 's/--disable-tests/--disable-tests --with-boost-libdir=\/usr\/lib\/i386-linux-gnu/' $FOLDER/debian/rules
