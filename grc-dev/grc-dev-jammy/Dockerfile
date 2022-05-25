@@ -1,5 +1,5 @@
-FROM --platform=$TARGETPLATFORM ubuntu:bionic as grc-build-deps-bionic
-LABEL maintainer="caraka@gridcoin.us"
+FROM --platform=$TARGETPLATFORM ubuntu:jammy as grc-build-deps-jammy
+MAINTAINER caraka@gridcoin.us
 
 # The build-deps are generous to cater for local compilation or debian packaging
 
@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	protobuf-compiler \
 	libminiupnpc-dev \
 	qtbase5-dev \
-	qttools5-dev-tools \
+    qttools5-dev-tools \
 	libqt5svg5-dev \
 	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
@@ -48,26 +48,22 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano \
-    software-properties-common &&\
+        software-properties-common &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-	
+
 # the following are for Windows executable compiling, Ubuntu LTS amd64 only
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ] ; then \
         export DEBIAN_FRONTEND='noninteractive' &&\
         apt install -y --no-install-recommends \
-	    g++-mingw-w64-x86-64 \
-	    g++-mingw-w64-i686 \
-	    mingw-w64-i686-dev &&\
+	g++-mingw-w64-x86-64 \
+	g++-mingw-w64-i686 \
+	mingw-w64-i686-dev &&\
         apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
     fi
 
-# update to backported debhelper 12.x for easier package backporting (bionic & stretch only)
-RUN apt update && apt install -y -t bionic-backports debhelper &&\
-    apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 # build the devtime stage, using cached build-deps stage:
-FROM grc-build-deps-bionic as grc-dev-bionic
-LABEL stage="grc-dev-bionic"
+FROM grc-build-deps-jammy as grcdevjammy
+LABEL stage="grcdevjammy"
 
 COPY start.sh /usr/local/bin/start.sh
 

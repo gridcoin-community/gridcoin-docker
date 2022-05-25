@@ -8,7 +8,7 @@ Multiarch compilation environments with generous dependencies and tools for buil
      gridcoincommunity/grc-dev:buster      linux/amd64, linux/arm64, linux/arm/v7, linux/386
      gridcoincommunity/grc-dev:focal       linux/amd64, linux/arm64, linux/arm/v7
      gridcoincommunity/grc-dev:bullseye    linux/amd64, linux/arm64, linux/arm/v7, linux/386
-
+     gridcoincommunity/grc-dev:jammy       linux/amd64, linux/arm64, linux/arm/v7
 
 A Swiss army knife build container for the adventurous gridcoiner.
 

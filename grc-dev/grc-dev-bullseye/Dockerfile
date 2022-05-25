@@ -37,6 +37,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	qtbase5-dev \
     qttools5-dev-tools \
 	libqt5svg5-dev \
+	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
 	libzip-dev \
 	zlib1g-dev \
