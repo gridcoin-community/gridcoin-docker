@@ -9,6 +9,7 @@ Multiarch compilation environments with generous dependencies and tools for buil
      gridcoincommunity/grc-dev:focal       linux/amd64, linux/arm64, linux/arm/v7
      gridcoincommunity/grc-dev:bullseye    linux/amd64, linux/arm64, linux/arm/v7, linux/386
      gridcoincommunity/grc-dev:jammy       linux/amd64, linux/arm64, linux/arm/v7
+     gridcoincommunity/grc-dev:bookworm    linux/amd64, linux/arm64, linux/arm/v7, linux/386
 
 A Swiss army knife build container for the adventurous gridcoiner.
 
@@ -30,7 +31,7 @@ The correct architecture will be downloaded to match your host; this can be chan
 
 In this example, items [enclosed in brackets] are optional:
 
->docker run --rm -it [--platform=target-platform -e HOST_USER_ID=xxxx] --name grc-dev-focal -v *path2/build/folder*:/home/dev gridcoincommunity/grc-dev:focal
+>docker run --rm -it [--platform=target-platform -e HOST_USER_ID=xxxx] --name grc-dev-focal -v *path2/build/folder*:/home/dev gridcoincommunity/grc-dev:jammy
 
 >git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 
