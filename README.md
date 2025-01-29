@@ -2,22 +2,24 @@
 
 ### gridcoincommunity/grc-dev
 
-Multiarch compilation environments with generous dependencies and tools for building gridcoinresearch & gridcoinresearchd available at [Docker Hub](https://hub.docker.com/r/gridcoincommunity/grc-dev)
+Multiarch compilation environments with generous dependencies and tools for building gridcoinresearch & gridcoinresearchd
 
-     gridcoincommunity/grc-dev:bionic      linux/amd64, linux/arm64, linux/arm/v7, linux/386
-     gridcoincommunity/grc-dev:buster      linux/amd64, linux/arm64, linux/arm/v7, linux/386
      gridcoincommunity/grc-dev:focal       linux/amd64, linux/arm64, linux/arm/v7
      gridcoincommunity/grc-dev:bullseye    linux/amd64, linux/arm64, linux/arm/v7, linux/386
      gridcoincommunity/grc-dev:jammy       linux/amd64, linux/arm64, linux/arm/v7
      gridcoincommunity/grc-dev:bookworm    linux/amd64, linux/arm64, linux/arm/v7, linux/386
+     gridcoincommunity/grc-dev:noble       linux/amd64, linux/arm64, linux/arm/v7
+     gridcoincommunity/grc-dev:trixie      linux/amd64 ALPHA!!
 
-A Swiss army knife build container for the adventurous gridcoiner.
+A Swiss army knife build container for the adventurous gridcoiner. (Qt and c++ build container)
 
 Gridcoin is a peer-to-peer cryptocurrency that uses distributed computing (BOINC) to benefit humanity by advancing the progress of medicine, biology, climatology, mathematics, astrophysics, and more.
 
 The aim of the Gridcoin project is to shift the computational power primarily to BOINC projects whilst the POW mining calculations become a second priority - so as the mining network scales up, the network's BOINC contribution is scaled up in tandem.
 
 The build dependencies and other tools are generous to cater for local compilation or debian packaging needs, on Ubuntu or Debian.
+
+Debian Buster is no longer supported by gridcoin.
 
 ### Unsecure: Not intended for any kind of exposure. This is a disposable development environment.
 
@@ -31,7 +33,7 @@ The correct architecture will be downloaded to match your host; this can be chan
 
 In this example, items [enclosed in brackets] are optional:
 
->docker run --rm -it [--platform=target-platform -e HOST_USER_ID=xxxx] --name grc-dev-focal -v *path2/build/folder*:/home/dev gridcoincommunity/grc-dev:jammy
+>docker run --rm -it [--platform=target-platform -e HOST_USER_ID=xxxx] --name grc-dev-noble -v *path2/build/folder*:/home/dev gridcoincommunity/grc-dev:noble
 
 >git clone https://github.com/gridcoin/Gridcoin-Research && cd Gridcoin-Research
 
