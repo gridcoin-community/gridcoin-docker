@@ -86,15 +86,22 @@ docker run --rm -it --platform linux/arm/v7 --name bookworm_arm32v7 -v $HOME/bui
 docker run --rm -it --platform linux/arm64 --name bookworm_arm64 -v $HOME/build/bookworm_arm64v8:/home/dev gridcoincommunity/grc-dev:bookworm /bin/bash
 ______________________________________________________________________________________________________
 
+#### (trixie amd64)
+docker run --rm -it --platform linux/amd64 --name trixie -v $HOME/build/trixie:/home/dev gridcoincommunity/grc-dev:trixie /bin/bash
+
+#### (trixie i386)
+docker run --rm -it --platform linux/386 --name trixie_i386 -v $HOME/build/trixie_i386:/home/dev gridcoincommunity/grc-dev:trixie /bin/bash
+
+#### (trixie arm32v7)
+docker run --rm -it --platform linux/arm/v7 --name trixie_arm32v7 -v $HOME/build/trixie_arm32v7:/home/dev gridcoincommunity/grc-dev:trixie /bin/bash
+
+#### (trixie arm64)
+docker run --rm -it --platform linux/arm64 --name trixie_arm64 -v $HOME/build/trixie_arm64v8:/home/dev gridcoincommunity/grc-dev:trixie /bin/bash
+______________________________________________________________________________________________________
+
 ### Build all the things
 
 The following commands are used to build the community containers for docker hub. Amend paths and the builder.sh files to suit your own local or hub-based, cross-compiled builds.
-
-#### (bionic multiarch to Docker Hub)
-cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-bionic && ./builder.sh
-
-#### (buster multiarch to Docker Hub)
-cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-buster && ./builder.sh
 
 #### (focal multiarch to Docker Hub)
 cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-focal && ./builder.sh
@@ -107,4 +114,17 @@ cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-jammy && ./builder.sh
 
 #### (bookworm multiarch to Docker Hub)
 cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-bookworm && ./builder.sh
+
+#### (noble multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-noble && ./builder.sh
+
+#### (trixie multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-trixie && ./builder.sh
+
+
+### Deprecated:
+#### (bionic multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-bionic && ./builder.sh
+#### (buster multiarch to Docker Hub)
+cd $HOME/build/gridcoin-docker/grc-dev/grc-dev-buster && ./builder.sh
 

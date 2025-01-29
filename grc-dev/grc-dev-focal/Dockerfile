@@ -1,5 +1,5 @@
-FROM --platform=$TARGETPLATFORM ubuntu:focal as grc-build-deps-focal
-MAINTAINER caraka@gridcoin.us
+FROM ubuntu:focal AS grc-build-deps-focal
+LABEL org.opencontainers.image.authors="caraka@gridcoin.us"
 
 # The build-deps are generous to cater for local compilation or debian packaging
 
@@ -62,7 +62,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ] ; then \
     fi
 
 # build the devtime stage, using cached build-deps stage:
-FROM grc-build-deps-focal as grcdevfocal
+FROM grc-build-deps-focal AS grcdevfocal
 LABEL stage="grcdevfocal"
 
 COPY start.sh /usr/local/bin/start.sh

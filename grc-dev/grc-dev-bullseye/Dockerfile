@@ -1,5 +1,5 @@
-FROM --platform=$TARGETPLATFORM debian:bullseye-slim as grc-build-deps-bullseye
-MAINTAINER caraka@gridcoin.us
+FROM debian:bullseye-slim AS grc-build-deps-bullseye
+LABEL org.opencontainers.image.authors="caraka@gridcoin.us"
 
 # The build-deps are generous to cater for local compilation or debian package
 
@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	protobuf-compiler \
 	libminiupnpc-dev \
 	qtbase5-dev \
-    qttools5-dev-tools \
+	qttools5-dev-tools \
 	libqt5svg5-dev \
 	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
@@ -47,11 +47,11 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
-    software-properties-common \
+	software-properties-common \
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-FROM grc-build-deps-bullseye as grcdevbullseye
+FROM grc-build-deps-bullseye AS grcdevbullseye
 LABEL stage="grcdevbullseye"
 
 COPY start.sh /usr/local/bin/start.sh

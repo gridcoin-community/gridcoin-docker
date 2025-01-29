@@ -1,7 +1,7 @@
-FROM debian:bookworm-slim AS grc-build-deps-bookworm
+FROM ubuntu:noble AS grc-build-deps-noble
 LABEL org.opencontainers.image.authors="caraka@gridcoin.us"
 
-# The build-deps are generous to cater for local compilation or debian package
+# The build-deps are generous to cater for local compilation or debian packaging
 
 # upgrade the OS and install gridcoin build env
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	protobuf-compiler \
 	libminiupnpc-dev \
 	qtbase5-dev \
-        qttools5-dev-tools \
+	qttools5-dev-tools \
 	libqt5svg5-dev \
 	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
@@ -47,12 +47,23 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
-        software-properties-common \
-	nano &&\
+	nano \
+	software-properties-common &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-FROM grc-build-deps-bookworm AS grcdevbookworm
-LABEL stage="grcdevbookworm"
+# the following are for Windows executable compiling, Ubuntu LTS amd64 only
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ] ; then \
+        export DEBIAN_FRONTEND='noninteractive' &&\
+        apt install -y --no-install-recommends \
+	g++-mingw-w64-x86-64 \
+	g++-mingw-w64-i686 \
+	mingw-w64-i686-dev &&\
+        apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
+    fi
+
+# build the devtime stage, using cached build-deps stage:
+FROM grc-build-deps-noble AS grcdevnoble
+LABEL stage="grcdevnoble"
 
 COPY start.sh /usr/local/bin/start.sh
 

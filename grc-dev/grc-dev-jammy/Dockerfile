@@ -1,9 +1,11 @@
-FROM --platform=$TARGETPLATFORM ubuntu:jammy as grc-build-deps-jammy
-MAINTAINER caraka@gridcoin.us
+FROM ubuntu:jammy AS grc-build-deps-jammy
+LABEL org.opencontainers.image.authors="caraka@gridcoin.us"
 
 # The build-deps are generous to cater for local compilation or debian packaging
 
 # upgrade the OS and install gridcoin build env
+RUN apt-get update && apt-get install -y apt-transport-https
+
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
 	apt update && apt install -y --no-install-recommends \
@@ -35,7 +37,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	protobuf-compiler \
 	libminiupnpc-dev \
 	qtbase5-dev \
-    qttools5-dev-tools \
+	qttools5-dev-tools \
 	libqt5svg5-dev \
 	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
@@ -48,7 +50,7 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	sudo \
 	git \
 	nano \
-        software-properties-common &&\
+	software-properties-common &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # the following are for Windows executable compiling, Ubuntu LTS amd64 only
@@ -62,7 +64,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ] ; then \
     fi
 
 # build the devtime stage, using cached build-deps stage:
-FROM grc-build-deps-jammy as grcdevjammy
+FROM grc-build-deps-jammy AS grcdevjammy
 LABEL stage="grcdevjammy"
 
 COPY start.sh /usr/local/bin/start.sh

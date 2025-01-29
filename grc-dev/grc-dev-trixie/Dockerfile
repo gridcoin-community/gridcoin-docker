@@ -1,12 +1,12 @@
-FROM debian:bookworm-slim AS grc-build-deps-bookworm
+FROM debian:trixie-slim AS grc-build-deps-trixie
 LABEL org.opencontainers.image.authors="caraka@gridcoin.us"
 
 # The build-deps are generous to cater for local compilation or debian package
 
 # upgrade the OS and install gridcoin build env
 RUN export DEBIAN_FRONTEND='noninteractive' &&\
-	apt update && apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
-	apt update && apt install -y --no-install-recommends \
+	apt upgrade -y -o Dpkg::Options::="--force-confold" &&\
+	apt update && apt install -y \
 	build-essential \
 	dh-exec \
 	fakeroot \
@@ -22,7 +22,8 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	bsdmainutils \
 	libssl-dev \
 	pkg-config \
-	libdb++-dev \
+	libdb5.3++-dev \
+	libleveldb-dev \
 	libboost-filesystem-dev \
 	libboost-program-options-dev \
 	libboost-system-dev \
@@ -34,10 +35,6 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	libprotobuf-dev \
 	protobuf-compiler \
 	libminiupnpc-dev \
-	qtbase5-dev \
-        qttools5-dev-tools \
-	libqt5svg5-dev \
-	libsecp256k1-dev \
 	libcurl4-gnutls-dev \
 	libzip-dev \
 	zlib1g-dev \
@@ -47,12 +44,15 @@ RUN export DEBIAN_FRONTEND='noninteractive' &&\
 	apt-utils \
 	sudo \
 	git \
-        software-properties-common \
+	qtbase5-dev \
+        qttools5-dev-tools \
+	libqt5svg5-dev \
+	libsecp256k1-dev \
 	nano &&\
 	apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-FROM grc-build-deps-bookworm AS grcdevbookworm
-LABEL stage="grcdevbookworm"
+FROM grc-build-deps-trixie AS grcdevtrixie
+LABEL stage="grcdevtrixie"
 
 COPY start.sh /usr/local/bin/start.sh
 
